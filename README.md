@@ -32,39 +32,46 @@ fact in the right SOAP category).
 
 I selected the **BART-Large-CNN** (Bidirectional and Auto-Regressive Transformers) architecture.
 
-● Why BART? BART uses a bidirectional encoder (like BERT) to grasp the full context of a
+● **Why BART?** 
+BART uses a bidirectional encoder (like BERT) to grasp the full context of a
 patient's story and an autoregressive decoder (like GPT) to generate structured text. This makes it
 significantly more effective than "decoder-only" models for capturing the specific nuances of
 clinical dialogue.
+
 ### Phase 3: Complexity & Challenges
 During the development, several critical complexities arose:
-* ** 1. Linguistic Diversity: Patients in South Asia often switch between Bangla and English. To handle
+* **1**. Linguistic Diversity: Patients in South Asia often switch between Bangla and English. To handle
 this, I utilized the SentencePiece tokenizer to ensure that the Bangla script did not result in
 "unknown token" errors.
-* ** 2. Repetitive Hallucination: In early testing, the model tended to loop medical phrases. I mitigated
+* **2**. Repetitive Hallucination: In early testing, the model tended to loop medical phrases. I mitigated
 this by implementing a high Repetition Penalty (3.5) and no-repeat n-gram size of 3 during
 inference.
 
-* ** 3. VRAM Constraints: Fine-tuning a 400M+ parameter model on a T4 GPU required memory
+* **3**. VRAM Constraints: Fine-tuning a 400M+ parameter model on a T4 GPU required memory
 engineering. I implemented Gradient Accumulation (to simulate a larger batch size) and FP16
 Mixed Precision to prevent out-of-memory crashes.
-3. Fine-Tuning Process
-The model was fine-tuned on the Medical
-Chat
-_
-_
-Summarization dataset using the Hugging Face Trainer
+
+
+
+
+## 📊 3. Fine-Tuning Process
+The model was fine-tuned on the Medical_Chat_Summarization dataset using the Hugging Face Trainer
 API.
-●
-●
-●
-●
-Epochs: 3
-Learning Rate: 3e-5
-Optimizer: AdamW
-Strategy: The training utilized Gradient Checkpointing, which saves memory by recomputing
+
+
+● Epochs: 3
+
+● Learning Rate: 3e-5
+
+● Optimizer: AdamW
+
+● Strategy: The training utilized Gradient Checkpointing, which saves memory by recomputing
 certain activations during the backward pass rather than storing them all.
-4. Evaluation Results
+
+
+
+
+## 🚀4. Evaluation Results
 Quantitative Performance (Epoch 2 Results)
 The model was evaluated using ROUGE scores to measure the overlap between generated notes and
 ground-truth references.
