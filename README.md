@@ -71,38 +71,42 @@ certain activations during the backward pass rather than storing them all.
 
 
 
-##  🚀4. Evaluation Results
-🔢 Quantitative Performance (Epoch 2 Results)
+---
 
-The model was evaluated using ROUGE scores to measure the overlap between generated clinical notes and ground-truth reference notes.
+## 🚀 4. Evaluation Results
 
-Metric	Score	Justification
-ROUGE-1	0.5672	Strong capture of individual clinical keywords such as vitals and symptoms.
-ROUGE-L	0.4517	Primary metric. Measures the longest common subsequence, indicating that the model preserves the correct SOAP structural flow.
-🧠 Qualitative Analysis
-🔹 Baseline Performance (Before Fine-Tuning)
+### 📈 Quantitative Performance (Epoch 2 Results)
+The model was evaluated using the **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)** metric to measure the linguistic and structural overlap between generated notes and ground-truth references.
 
-Generated generic paragraphs without clear S-O-A-P section headers.
+| Metric | Score | Justification |
+| :--- | :--- | :--- |
+| **ROUGE-1** 🥇 | **0.5672** | Demonstrates high capture of individual clinical keywords (vitals, symptoms, medications). |
+| **ROUGE-L** 🏆 | **0.4517** | **Primary Metric.** Validates that the model maintains the correct SOAP structural flow and long-term dependencies. |
 
-Frequently omitted important clinical details such as specific medication dosages.
 
-Lacked structural consistency required for standardized medical documentation.
 
-🔹 Fine-Tuned Model Performance
+---
 
-Successfully structured notes into proper SOAP format.
+### 🔍 Qualitative Analysis
 
-Correctly placed "Salmonella enterica infection" under the Assessment section.
+#### ⚪ Baseline Performance (Pre-Tuning)
+Before fine-tuning, the base `BART-Large-CNN` model acted as a general summarizer. 
+* **Observation:** It produced continuous paragraphs without any structural headers.
+* **Critical Flaw:** It frequently omitted specific medication dosages and failed to categorize information into S-O-A-P sections.
 
-Properly identified "Cefazolin" under the Plan section.
+#### 🟢 Fine-Tuned Success (AIMScribe)
+After fine-tuning, the model showed a sophisticated understanding of clinical mapping.
+* **Case Study:** The model accurately identified *"pyogenic spondylitis secondary to Salmonella enterica"* and correctly isolated it into the **Assessment** section, while placing *"Cefazolin"* into the **Plan**.
 
-Demonstrated improved clinical entity separation and structured summarization.
+#### 🔴 Failure Analysis & Optimization
+> [!IMPORTANT]
+> **Identified Issue:** In cases with extremely long transcripts, the model occasionally truncated the "Plan" section due to output length constraints.
+>
+> **Technical Fix:** I expanded the `max_length` parameter from the default to **256 tokens** during the generation phase to ensure comprehensive coverage of medical instructions.
 
-🔹 Failure Analysis & Improvement
 
-For extremely long transcripts, the model occasionally truncated the "Plan" section.
 
-To address this issue, the max_length parameter during generation was increased to 256 tokens, which improved output completeness.
+---
 
 
 
