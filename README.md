@@ -8,10 +8,15 @@
 ![Status](https://img.shields.io/badge/Status-Deployment_Active-green)
 
 
-Name: Sadia Ruhama
-Contact: 01631029458 | sadia.ruhama@g.bracu.ac.bd
-Clinical SOAP Note Generator
-Bilingual Ambient AI for Medical Summarization
+## 👤 Personal Information
+**Name:** Sadia Ruhama  
+**Contact:** 01631029458  
+**Email:** [sadia.ruhama@g.bracu.ac.bd](mailto:sadia.ruhama@g.bracu.ac.bd)  
+**Location:** Dhaka, Bangladesh
+
+
+
+
 1. Project Overview
 AIMScribe is an automated clinical documentation system that transforms raw, bilingual
 (Bangla-English) doctor-patient transcripts into structured SOAP (Subjective, Objective, Assessment,
