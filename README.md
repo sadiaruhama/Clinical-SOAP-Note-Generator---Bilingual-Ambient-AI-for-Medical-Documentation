@@ -110,7 +110,7 @@ After fine-tuning, the model showed a sophisticated understanding of clinical ma
 
 
 
-##  ❤️5. Setup & API Usage Guide
+##  🏗️5. Setup & API Usage Guide
 
 **Installation**
 
@@ -146,4 +146,10 @@ print(result)
 
 
 
-##  ✅7. Deployment Link: https://ruhameow-medical-soap-scribe.hf.space/
+##  🌍 7. Live Deployment: https://ruhameow-medical-soap-scribe.hf.space/
+
+
+
+<p align="center">
+Developed with 💖 & ☕ by Sadia Ruhama
+</p>
