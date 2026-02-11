@@ -1,104 +1,102 @@
-# Clinical-SOAP-Note-Generator---Bilingual-Ambient-AI-for-Medical-Documentation
-
+Name: Sadia Ruhama
+Contact: 01631029458 | sadia.ruhama@g.bracu.ac.bd
+Clinical SOAP Note Generator
+Bilingual Ambient AI for Medical Summarization
 1. Project Overview
-AIMScribe is an AI-driven clinical documentation assistant designed to convert unstructured doctor-patient dialogues into structured, professional SOAP (Subjective, Objective, Assessment, Plan) notes.
-
-The Context: In high-volume clinical settings (like those in Bangladesh), doctors often spend significant time on paperwork. AIMScribe acts as an "Ambient AI," listening to the conversation and extracting clinical entities to reduce administrative burnout.
-The Challenge: The system must handle "Code-Switching" (Bangla and English mixed naturally) and maintain factual integrity for patient safety.
-
-2. Approach & Thought Process
-How to Think About the Problem
-To solve medical summarization, one must approach it not as a translation task, but as a Distillation and Categorization task. The raw input contains "noise" (greetings, filler words, side conversations), while the output requires "high-density clinical facts."
-
-The Approach
-Architecture Selection: I chose a Sequence-to-Sequence (Seq2Seq) Transformer model (BART-Large-CNN). BART is superior to standard GPT-style models for this task because its bidirectional encoder "understands" the full context of a dialogue before the decoder starts generating the summary.
-
-Data Partitioning: The model was trained to recognize linguistic cues that signal the four SOAP components (e.g., patient complaints → Subjective; doctor's orders → Plan).
-
-Bilingual Handling: Since standard tokenizers often fail on Bangla script, I utilized the AutoTokenizer with use_fast=False to ensure stable SentencePiece processing for non-Latin characters.
-
-Complexities & Mitigation
-Environment Mismatch: Deploying Python 3.13 caused build failures for low-level C++ libraries (sentencepiece). I pivoted to Python 3.10 to ensure pre-compiled binary compatibility.
-
-Hallucination (Schema Drift): Seq2Seq models often "invent" diagnoses. I mitigated this by tuning the Repetition Penalty (3.0) and No-Repeat N-Gram Size (3) to anchor the model strictly to the transcript facts.
-
-Resource Constraints: Running a 1.6GB model on a Free-tier CPU Space requires memory optimization. I implemented torch.no_grad() and Beam Search optimization to prevent Out-of-Memory (OOM) crashes.
-
-3. Setup Instructions
-Local Installation
-Requirement: Python 3.10.x
-
-Clone Repo:
-
-Bash
-git clone https://huggingface.co/spaces/ruhameow/medical-soap-scribe
-cd medical-soap-scribe
-Install Dependencies:
-
+AIMScribe is an automated clinical documentation system that transforms raw, bilingual
+(Bangla-English) doctor-patient transcripts into structured SOAP (Subjective, Objective, Assessment,
+Plan) notes. By capturing clinical data in real-time, the tool aims to reduce the "documentation burden"
+that leads to physician burnout and medical errors.
+2. Thought Process & Problem-Solving Approach
+Phase 1: Problem Definition
+The task is a specialized form of Abstractive Summarization. Unlike general news summarization,
+medical notes require Entity Extraction (medications, vitals) and Structural Mapping (putting the right
+fact in the right SOAP category).
+Phase 2: Architectural Selection
+●
+I selected the BART-Large-CNN (Bidirectional and Auto-Regressive Transformers) architecture.
+Why BART? BART uses a bidirectional encoder (like BERT) to grasp the full context of a
+patient's story and an autoregressive decoder (like GPT) to generate structured text. This makes it
+significantly more effective than "decoder-only" models for capturing the specific nuances of
+clinical dialogue.
+Phase 3: Complexity & Challenges
+During the development, several critical complexities arose:
+1. Linguistic Diversity: Patients in South Asia often switch between Bangla and English. To handle
+this, I utilized the SentencePiece tokenizer to ensure that the Bangla script didn't result in
+"unknown token" errors.
+Repetitive Hallucination: In early testing, the model tended to loop medical phrases. I mitigated
+this by implementing a high Repetition Penalty (3.5) and no-repeat n-gram size of 3 during
+inference.
+2. 
+3. VRAM Constraints: Fine-tuning a 400M+ parameter model on a T4 GPU required memory
+engineering. I implemented Gradient Accumulation (to simulate a larger batch size) and FP16
+Mixed Precision to prevent out-of-memory crashes.
+3. Fine-Tuning Process
+The model was fine-tuned on the Medical
+Chat
+_
+_
+Summarization dataset using the Hugging Face Trainer
+API.
+●
+●
+●
+●
+Epochs: 3
+Learning Rate: 3e-5
+Optimizer: AdamW
+Strategy: The training utilized Gradient Checkpointing, which saves memory by recomputing
+certain activations during the backward pass rather than storing them all.
+4. Evaluation Results
+Quantitative Performance (Epoch 2 Results)
+The model was evaluated using ROUGE scores to measure the overlap between generated notes and
+ground-truth references.
+Metric Score Justification
+ROUGE-1 0.5672 High capture of individual clinical keywords (vitals, symptoms).
+ROUGE-L 0.4517 Primary Metric. Measures the longest common subsequence, proving the
+model follows the correct SOAP structural flow.
+Qualitative Analysis
+●
+Baseline Performance: Before training, the model produced general paragraphs without any
+S-O-A-P headers, often missing specific medication dosages.
+●
+Fine-Tuned Success: After training, the model successfully isolated "Salmonella enterica
+infection" into the Assessment section and "Cefazolin" into the Plan.
+●
+Failure Analysis: In cases with extremely long transcripts, the model occasionally truncated the
+"Plan.
+" To fix this, I expanded the max
+_
+length during the generation phase to 256 tokens.
+5. Setup & API Usage Guide
+Installation
 Bash
 pip install -r requirements.txt
-Note: Ensure huggingface_hub and transformers are updated to support subfolder loading.
-
-4. Model Information
-Base Weights: facebook/bart-large-cnn
-
-Parameters: 406 Million
-
-Fine-Tuned Layers: Full-model fine-tuning was performed to capture the specific structure of medical SOAP notes.
-
-Storage: Weights are hosted in a dedicated repository ruhameow/medical-scribe-weights and loaded via the subfolder parameter to maintain repository modularity.
-
-5. Fine-Tuning Process
-The fine-tuning was conducted in a Google Colab T4 GPU environment using the Hugging Face Trainer API.
-
-Preprocessing: Dialogues were prefixed with the task summarize:  to trigger the model's summarization state.
-
-Hyperparameters:
-
-Learning Rate: 2e-5
-
-Batch Size: 4 (optimized for VRAM)
-
-Weight Decay: 0.01 (to prevent overfitting to specific patient names).
-
-Serialization: The final artifacts include config.json, model.safetensors, and the full tokenizer suite (vocab.json, merges.txt) to ensure portability across environments.
-
-6. Evaluation Results
-The model was evaluated using three clinical scenarios:
-
-Acute Presentation (Fever/Cough): High accuracy in Subjective extraction.
-
-Musculoskeletal (Back Pain): Identified "Negation Inversion" issues (e.g., the model occasionally misses "No" in "No leg pain").
-
-Chronic Management (Hypertension): Successfully extracted numerical vitals (BP 160/90) but showed a tendency for "Diagnostic Escalation" (hallucinating related conditions like Diabetes).
-
-Conclusion: The system acts as a high-performance Drafting Assistant, capable of reducing documentation time by ~60%, though it requires final clinician verification for diagnostic accuracy.
-
-7. API Usage Guide
-The model is exposed via a Gradio interface and can be accessed programmatically.
-
-Python API Call
+API Usage (via Python)
+The model is served via a Gradio API. You can query it programmatically as follows:
 Python
-import torch
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-# Load model
-tokenizer = AutoTokenizer.from_pretrained("ruhameow/medical-scribe-weights", subfolder="final_medical_scribe_model")
-model = AutoModelForSeq2SeqLM.from_pretrained("ruhameow/medical-scribe-weights", subfolder="final_medical_scribe_model")
-
-def predict(text):
-    inputs = tokenizer("summarize: " + text, return_tensors="pt", truncation=True)
-    outputs = model.generate(inputs["input_ids"], max_length=200, repetition_penalty=3.0)
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
-8. Libraries Used
-transformers: Core LLM framework for BART.
-
-torch: Tensor backend and GPU acceleration.
-
-gradio: Web interface for clinical testing.
-
-huggingface_hub: Remote weight management and API integration.
-
-sentencepiece: Critical dependency for Bangla language tokenization.
-
-# Deployment Link: https://huggingface.co/spaces/ruhameow/medical-soap-scribe
+from gradio
+_
+client import Client
+client = Client("ruhameow/medical-soap-scribe")
+result = client.predict(
+dialogue="Patient reports lower back pain with stiffness.
+"
+,
+api
+_
+name="/predict"
+)
+print(result)
+6. Libraries Used
+●
+●
+●
+●
+●
+Transformers (Hugging Face): For BART model loading and Seq2Seq training.
+Datasets & Evaluate: For processing clinical data and computing ROUGE scores.
+Gradio: To build the front-end deployment interface.
+PyTorch: The underlying deep learning engine for tensor computations.
+SentencePiece: Critical for handling the Bangla-English bilingual tokenization.
+7. Deployment Link: https://ruhameow-medical-soap-scribe.hf.space/
