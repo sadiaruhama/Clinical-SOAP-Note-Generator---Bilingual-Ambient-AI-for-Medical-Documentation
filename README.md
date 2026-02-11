@@ -78,6 +78,8 @@ certain activations during the backward pass rather than storing them all.
 ### 📈 Quantitative Performance (Epoch 2 Results)
 The model was evaluated using the **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)** metric to measure the linguistic and structural overlap between generated notes and ground-truth references.
 
+ROUGE was used to quantitatively measure how closely the AI-generated SOAP notes match the professional "gold standard" references by calculating the overlap of key medical terms and structural sequences.
+
 | Metric | Score | Justification |
 | :--- | :--- | :--- |
 | **ROUGE-1** 🥇 | **0.5672** | Demonstrates high capture of individual clinical keywords (vitals, symptoms, medications). |
