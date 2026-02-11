@@ -25,13 +25,14 @@ that leads to physician burnout and medical errors.
 
 ## 🧠2. Thought Process & Problem-Solving Approach
 ### Phase 1: Problem Definition
-The task is a specialized form of Abstractive Summarization. Unlike general news summarization,
-medical notes require Entity Extraction (medications, vitals) and Structural Mapping (putting the right
+The task is a specialized form of **Abstractive Summarization**. Unlike general news summarization,
+medical notes require Entity Extraction (medications, vitals) and **Structural Mapping** (putting the right
 fact in the right SOAP category).
 ### Phase 2: Architectural Selection
-●
+
 I selected the **BART-Large-CNN** (Bidirectional and Auto-Regressive Transformers) architecture.
-**Why BART?** BART uses a bidirectional encoder (like BERT) to grasp the full context of a
+
+    ● **Why BART?** BART uses a bidirectional encoder (like BERT) to grasp the full context of a
 patient's story and an autoregressive decoder (like GPT) to generate structured text. This makes it
 significantly more effective than "decoder-only" models for capturing the specific nuances of
 clinical dialogue.
