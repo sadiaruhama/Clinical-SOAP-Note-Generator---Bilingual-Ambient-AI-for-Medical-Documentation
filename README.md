@@ -96,25 +96,24 @@ length during the generation phase to 256 tokens.
 
 
 ##  ❤️5. Setup & API Usage Guide
-Installation
-Bash
-pip install -r requirements.txt
+
+**Installation**
+
+`pip install -r requirements.txt`
+
 API Usage (via Python)
+
 The model is served via a Gradio API. You can query it programmatically as follows:
-Python
-from gradio
-_
-client import Client
+
+
+```from gradio_client import Client**
+
 client = Client("ruhameow/medical-soap-scribe")
-result = client.predict(
-dialogue="Patient reports lower back pain with stiffness.
-"
-,
-api
-_
-name="/predict"
-)
+
+result = client.predict( dialogue="Patient reports lower back pain with stiffness.", api_name="/predict")
+
 print(result)
+```
 
 
 ##  🤖6. Libraries Used
