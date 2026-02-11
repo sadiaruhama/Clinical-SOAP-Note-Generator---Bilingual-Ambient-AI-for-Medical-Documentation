@@ -92,7 +92,10 @@ Failure Analysis: In cases with extremely long transcripts, the model occasional
 " To fix this, I expanded the max
 _
 length during the generation phase to 256 tokens.
-5. Setup & API Usage Guide
+
+
+
+## ❤️5. Setup & API Usage Guide
 Installation
 Bash
 pip install -r requirements.txt
@@ -112,15 +115,21 @@ _
 name="/predict"
 )
 print(result)
-6. Libraries Used
-●
-●
-●
-●
-●
-Transformers (Hugging Face): For BART model loading and Seq2Seq training.
-Datasets & Evaluate: For processing clinical data and computing ROUGE scores.
-Gradio: To build the front-end deployment interface.
-PyTorch: The underlying deep learning engine for tensor computations.
-SentencePiece: Critical for handling the Bangla-English bilingual tokenization.
-7. Deployment Link: https://ruhameow-medical-soap-scribe.hf.space/
+
+
+## 🤖6. Libraries Used
+● Transformers (Hugging Face): For BART model loading and Seq2Seq training.
+
+● Datasets & Evaluate: For processing clinical data and computing ROUGE scores.
+
+● Gradio: To build the front-end deployment interface.
+
+● PyTorch: The underlying deep learning engine for tensor computations.
+
+● SentencePiece: Critical for handling the Bangla-English bilingual tokenization.
+
+
+
+
+
+## ✅7. Deployment Link: https://ruhameow-medical-soap-scribe.hf.space/
