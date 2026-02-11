@@ -32,7 +32,7 @@ fact in the right SOAP category).
 
 I selected the **BART-Large-CNN** (Bidirectional and Auto-Regressive Transformers) architecture.
 
-    ● **Why BART?** BART uses a bidirectional encoder (like BERT) to grasp the full context of a
+● Why BART? BART uses a bidirectional encoder (like BERT) to grasp the full context of a
 patient's story and an autoregressive decoder (like GPT) to generate structured text. This makes it
 significantly more effective than "decoder-only" models for capturing the specific nuances of
 clinical dialogue.
