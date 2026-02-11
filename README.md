@@ -24,18 +24,18 @@ Plan)** notes. By capturing clinical data in real-time, the tool aims to reduce 
 that leads to physician burnout and medical errors.
 
 ## 🧠2. Thought Process & Problem-Solving Approach
-###Phase 1: Problem Definition
+### Phase 1: Problem Definition
 The task is a specialized form of Abstractive Summarization. Unlike general news summarization,
 medical notes require Entity Extraction (medications, vitals) and Structural Mapping (putting the right
 fact in the right SOAP category).
-###Phase 2: Architectural Selection
+### Phase 2: Architectural Selection
 ●
 I selected the **BART-Large-CNN** (Bidirectional and Auto-Regressive Transformers) architecture.
 **Why BART?** BART uses a bidirectional encoder (like BERT) to grasp the full context of a
 patient's story and an autoregressive decoder (like GPT) to generate structured text. This makes it
 significantly more effective than "decoder-only" models for capturing the specific nuances of
 clinical dialogue.
-###Phase 3: Complexity & Challenges
+### Phase 3: Complexity & Challenges
 During the development, several critical complexities arose:
 * **1. Linguistic Diversity: Patients in South Asia often switch between Bangla and English. To handle
 this, I utilized the SentencePiece tokenizer to ensure that the Bangla script did not result in
@@ -44,7 +44,7 @@ this, I utilized the SentencePiece tokenizer to ensure that the Bangla script di
 this by implementing a high Repetition Penalty (3.5) and no-repeat n-gram size of 3 during
 inference.
 
-* **3. VRAM Constraints: Fine-tuning a 400M+ parameter model on a T4 GPU required memory
+* ** 3. VRAM Constraints: Fine-tuning a 400M+ parameter model on a T4 GPU required memory
 engineering. I implemented Gradient Accumulation (to simulate a larger batch size) and FP16
 Mixed Precision to prevent out-of-memory crashes.
 3. Fine-Tuning Process
