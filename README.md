@@ -54,7 +54,7 @@ Mixed Precision to prevent out-of-memory crashes.
 
 
 
-## 📊 3. Fine-Tuning Process
+##  📊3. Fine-Tuning Process
 The model was fine-tuned on the Medical_Chat_Summarization dataset using the Hugging Face Trainer
 API.
 
@@ -71,7 +71,7 @@ certain activations during the backward pass rather than storing them all.
 
 
 
-## 🚀4. Evaluation Results
+##  🚀4. Evaluation Results
 Quantitative Performance (Epoch 2 Results)
 The model was evaluated using ROUGE scores to measure the overlap between generated notes and
 ground-truth references.
@@ -95,7 +95,7 @@ length during the generation phase to 256 tokens.
 
 
 
-## ❤️5. Setup & API Usage Guide
+##  ❤️5. Setup & API Usage Guide
 Installation
 Bash
 pip install -r requirements.txt
@@ -117,7 +117,7 @@ name="/predict"
 print(result)
 
 
-## 🤖6. Libraries Used
+##  🤖6. Libraries Used
 ● Transformers (Hugging Face): For BART model loading and Seq2Seq training.
 
 ● Datasets & Evaluate: For processing clinical data and computing ROUGE scores.
@@ -132,4 +132,4 @@ print(result)
 
 
 
-## ✅7. Deployment Link: https://ruhameow-medical-soap-scribe.hf.space/
+##  ✅7. Deployment Link: https://ruhameow-medical-soap-scribe.hf.space/
