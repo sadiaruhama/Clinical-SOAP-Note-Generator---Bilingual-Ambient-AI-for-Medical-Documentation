@@ -1,3 +1,13 @@
+
+# 🩺 AIMScribe: Clinical SOAP Note Generator
+> **Bilingual Ambient AI for Medical Summarization**
+
+![Python](https://img.shields.io/badge/python-3.10-blue.svg)
+![Model](https://img.shields.io/badge/Model-BART--Large--CNN-orange)
+![Framework](https://img.shields.io/badge/Framework-HuggingFace-yellow)
+![Status](https://img.shields.io/badge/Status-Deployment_Active-green)
+
+
 Name: Sadia Ruhama
 Contact: 01631029458 | sadia.ruhama@g.bracu.ac.bd
 Clinical SOAP Note Generator
