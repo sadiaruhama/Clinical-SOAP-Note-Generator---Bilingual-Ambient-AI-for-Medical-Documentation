@@ -37,10 +37,10 @@ significantly more effective than "decoder-only" models for capturing the specif
 clinical dialogue.
 ### Phase 3: Complexity & Challenges
 During the development, several critical complexities arose:
-* **1. Linguistic Diversity: Patients in South Asia often switch between Bangla and English. To handle
+* ** 1. Linguistic Diversity: Patients in South Asia often switch between Bangla and English. To handle
 this, I utilized the SentencePiece tokenizer to ensure that the Bangla script did not result in
 "unknown token" errors.
-* **2. Repetitive Hallucination: In early testing, the model tended to loop medical phrases. I mitigated
+* ** 2. Repetitive Hallucination: In early testing, the model tended to loop medical phrases. I mitigated
 this by implementing a high Repetition Penalty (3.5) and no-repeat n-gram size of 3 during
 inference.
 
