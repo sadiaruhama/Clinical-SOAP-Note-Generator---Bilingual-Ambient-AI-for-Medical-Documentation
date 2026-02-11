@@ -100,3 +100,5 @@ gradio: Web interface for clinical testing.
 huggingface_hub: Remote weight management and API integration.
 
 sentencepiece: Critical dependency for Bangla language tokenization.
+
+#Deployment Link: https://huggingface.co/spaces/ruhameow/medical-soap-scribe
