@@ -1,0 +1,9 @@
+
+
+
+huggingface_hub==0.24.0
+gradio==4.44.1
+transformers[sentencepiece]
+sentencepiece
+protobuf
+torch
