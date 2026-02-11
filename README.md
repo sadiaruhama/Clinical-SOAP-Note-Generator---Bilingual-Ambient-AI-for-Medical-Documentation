@@ -72,26 +72,37 @@ certain activations during the backward pass rather than storing them all.
 
 
 ##  🚀4. Evaluation Results
-Quantitative Performance (Epoch 2 Results)
-The model was evaluated using ROUGE scores to measure the overlap between generated notes and
-ground-truth references.
-Metric Score Justification
-ROUGE-1 0.5672 High capture of individual clinical keywords (vitals, symptoms).
-ROUGE-L 0.4517 Primary Metric. Measures the longest common subsequence, proving the
-model follows the correct SOAP structural flow.
-Qualitative Analysis
-●
-Baseline Performance: Before training, the model produced general paragraphs without any
-S-O-A-P headers, often missing specific medication dosages.
-●
-Fine-Tuned Success: After training, the model successfully isolated "Salmonella enterica
-infection" into the Assessment section and "Cefazolin" into the Plan.
-●
-Failure Analysis: In cases with extremely long transcripts, the model occasionally truncated the
-"Plan.
-" To fix this, I expanded the max
-_
-length during the generation phase to 256 tokens.
+🔢 Quantitative Performance (Epoch 2 Results)
+
+The model was evaluated using ROUGE scores to measure the overlap between generated clinical notes and ground-truth reference notes.
+
+Metric	Score	Justification
+ROUGE-1	0.5672	Strong capture of individual clinical keywords such as vitals and symptoms.
+ROUGE-L	0.4517	Primary metric. Measures the longest common subsequence, indicating that the model preserves the correct SOAP structural flow.
+🧠 Qualitative Analysis
+🔹 Baseline Performance (Before Fine-Tuning)
+
+Generated generic paragraphs without clear S-O-A-P section headers.
+
+Frequently omitted important clinical details such as specific medication dosages.
+
+Lacked structural consistency required for standardized medical documentation.
+
+🔹 Fine-Tuned Model Performance
+
+Successfully structured notes into proper SOAP format.
+
+Correctly placed "Salmonella enterica infection" under the Assessment section.
+
+Properly identified "Cefazolin" under the Plan section.
+
+Demonstrated improved clinical entity separation and structured summarization.
+
+🔹 Failure Analysis & Improvement
+
+For extremely long transcripts, the model occasionally truncated the "Plan" section.
+
+To address this issue, the max_length parameter during generation was increased to 256 tokens, which improved output completeness.
 
 
 
