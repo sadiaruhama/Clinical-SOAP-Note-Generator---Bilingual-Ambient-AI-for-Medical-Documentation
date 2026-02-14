@@ -10,7 +10,6 @@
 
 ## 👤 Personal Information
 **Name:** Sadia Ruhama  
-**Contact:** 01631029458  
 **Email:** [sadia.ruhama@g.bracu.ac.bd](mailto:sadia.ruhama@g.bracu.ac.bd)  
 
 
