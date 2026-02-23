@@ -17,7 +17,7 @@
 
 
 ## 📖 1.Project Overview
-AIMScribe is an automated clinical documentation system that transforms raw, bilingual
+It is an automated clinical documentation system that transforms raw, bilingual
 (Bangla-English) doctor-patient transcripts into structured **SOAP (Subjective, Objective, Assessment,
 Plan)** notes. By capturing clinical data in real-time, the tool aims to reduce the "documentation burden"
 that leads to physician burnout and medical errors.
